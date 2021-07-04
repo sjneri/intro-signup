@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Intro component with sign up form</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+</head>
+<body>
+  <main class="landing">
+    <section class="copy">
+      <h1 class="head-1">Learn to code by watching others</h1>
+      <p>See how experienced developers solve problems in real-time. Watching scripted tutorials is great, but understanding how developers think is invaluable.</p>
+    </section>
+
+    <section class="form">
+      <p class="form__header"><span class="font-bold">Try it free 7 days</span> then $20/mo. thereafter</p>
+
+      <form class="form__content" onsubmit="return validateForm(this)">
+        <!-- First Name -->
+        <div class="form-group">
+          <input type="text" name="firstName" class="form-group__input" placeholder="First Name">
+          <span class="input-check">
+						<i class="fas fa-check-circle"></i>
+						<i class="fas fa-exclamation-circle"></i>
+					</span>
+          <small class="input-alert"></small>
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-group">
+          <input type="text" name="lastName" class="form-group__input" placeholder="Last Name">
+          <span class="input-check">
+						<i class="fas fa-check-circle"></i>
+						<i class="fas fa-exclamation-circle"></i>
+					</span>
+          <small class="input-alert"></small>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <input type="email" name="email" class="form-group__input" placeholder="E-mail Address">
+          <span class="input-check">
+						<i class="fas fa-check-circle"></i>
+						<i class="fas fa-exclamation-circle"></i>
+					</span>
+          <small class="input-alert"></small>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <input type="password" name="password" class="form-group__input" minlength="8" placeholder="Password">
+          <span class="input-check">
+						<i class="fas fa-check-circle"></i>
+						<i class="fas fa-exclamation-circle"></i>
+					</span>
+          <small class="input-alert"></small>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="button button--submit">Claim your free trial</button>
+          <p class="form-group__terms">By clicking the button, you are agreeing to our <a href="" class="link">Terms and Services</a></p>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // Set Error Message
+    function setError(input, errormsg) {
+      const formGroup = input.parentElement;
+      const inputAlert = formGroup.querySelector(".input-alert");
+      formGroup.className = "form-group error";
+      inputAlert.innerText = errormsg;
+    }
+
+    // Set Success Message
+    function setSuccess(input) {
+      const formGroup = input.parentElement;
+      formGroup.className = "form-group success";
+    }
+
+    // Check Valid Email
+    function validEmail(email) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    }
+
+    // Check Valid Password
+    function validPassword(password) {
+      const pass = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return pass.test(String(password));
+    }
+
+    // Form Validation Check
+    function validateForm(form) {
+      if (form.firstName.value.trim() === "") {
+        setError(form.firstName, "First Name cannot be empty");
+        return false;
+      } else {
+        setSuccess(form.firstName);
+      }
+
+      if (form.lastName.value.trim() === "") {
+        setError(form.lastName, "Last Name cannot be empty");
+        return false;
+      } else {
+        setSuccess(form.lastName);
+      }
+
+      if (form.email.value.trim() === "") {
+        setError(form.email, "Email cannot be empty");
+        return false;
+      } else if (!validEmail(form.email.value.trim())) {
+        setError(form.email, "Looks like this is not an email");
+        return false;
+      } else {
+        setSuccess(form.email);
+      }
+
+      if (form.password.value.match() === "") {
+        setError(form.password, "Password cannot be empty");
+        return false;
+      } else if (validPassword(form.password.value.match())) {
+        setSuccess(form.password);
+      } else {
+        setSuccess(form.password);
+      }
+
+      form.reset();
+      return true;
+    }
+  </script>
+</body>
+</html>
